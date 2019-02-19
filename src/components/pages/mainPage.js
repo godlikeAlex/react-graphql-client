@@ -13,10 +13,7 @@ class MainPage extends React.Component {
     state = {
         loading: true
     }
-
-    componentDidMount() {
-    }
-
+    
     componentWillReceiveProps(prevProps) {
         if(prevProps.currentUser !== this.props.currentUser) {
             this.setState({loading: false});

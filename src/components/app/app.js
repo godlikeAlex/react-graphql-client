@@ -5,7 +5,7 @@ import WithApolloClient from '../hoc/WithApolloClient';
 
 import { ME } from '../../queries';
 import {connect} from 'react-redux';
-import {setCurrentUser} from '../../actions';
+import {setCurrentUser, setLoading} from '../../actions';
 
 import './app.css';
 
@@ -25,15 +25,17 @@ class App extends Component {
         this.props.client.query({ query: ME })
         .then(({data, loading}) => {
             this.props.setCurrentUser(data.me);
+            this.props.history.push('/');
         })
-        .catch(err => console.log(err));
-        if(this.props.currentUser === null) {
+        .catch(err => {
             this.props.history.push('/login');
-        }
+            this.props.setLoading(false);
+        });
     }
 
     render() {
-        return (
+        console.log(this.props.isLoading)
+        return this.props.isLoading ? <Spinner /> : (
             <Switch>
                 <Route path='/' exact component={MainPage} />
                 <Route path='/login' component={Login}  />
@@ -51,4 +53,4 @@ const mapStateToProps = (state) => {
 };
 
 
-export default withRouter(connect(mapStateToProps, {setCurrentUser})(WithApolloClient()(App)));
+export default withRouter(connect(mapStateToProps, {setCurrentUser, setLoading})(WithApolloClient()(App)));

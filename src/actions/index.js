@@ -14,3 +14,12 @@ export const logOut = () => {
         type: actionTypes.LOGOUT_USER
     }
 };
+
+export const setLoading = (isLoading) => {
+    return {
+        type: actionTypes.SET_LOADING,
+        payload: {
+            isLoading
+        }
+    }
+};

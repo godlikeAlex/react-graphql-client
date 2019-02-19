@@ -5,28 +5,35 @@ import './header.css';
 
 import { logOut } from '../../actions';
 
-const Header = ({currentUser, logOut}) => {    
+class Header extends React.Component {    
     
-    const logout = () => {
+    logout = () => {
         logOut();
         localStorage.removeItem('token');
+        this.props.history.push('/login');
     }
-    
-    return (
-        <header>
-            <div>
-                Logo
-            </div>
-            <nav>
-                <Link to="/">
-                    Home
-                </Link>
-                <span onClick={logout}>Sign Out</span> : 
-                <Link to="/login"> Login </Link>
-                <Link to="/signout">1</Link>
-            </nav>
-        </header>
-    )
+
+    render() {
+        const {currentUser} = this.props;
+        return (
+            <header>
+                <div>
+                    Logo
+                </div>
+                <nav>
+                    {
+                        currentUser !== null ? (
+                            <div className='user-header'>
+                                <span>{currentUser.name}</span>
+                                <div><span onClick={this.logout}> Sign Out</span> </div>
+                            </div>
+                        ) : <Link to="/login"> Login </Link>
+                        
+                    }
+                </nav>
+            </header>
+        )
+    }
 };
 
 const mapStateToProps = (state) => {
@@ -35,4 +42,4 @@ const mapStateToProps = (state) => {
     }
 };
 
-export default Header;
+export default connect(mapStateToProps, {logOut})(Header);
