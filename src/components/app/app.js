@@ -22,23 +22,24 @@ class App extends Component {
     }
 
     componentWillMount() {
+        this.props.setLoading(true);
         this.props.client.query({ query: ME })
         .then(({data, loading}) => {
             this.props.setCurrentUser(data.me);
             this.props.history.push('/');
+            this.props.setLoading(false);
         })
         .catch(err => {
             this.props.history.push('/login');
-            this.props.setLoading(false);
         });
     }
 
     render() {
-        console.log(this.props.isLoading)
-        return this.props.isLoading ? <Spinner /> : (
+        const {currentUser} = this.props;
+        return (
             <Switch>
-                <Route path='/' exact component={MainPage} />
-                <Route path='/login' component={Login}  />
+                <Route path='/' exact component={MainPage} currentUser={currentUser} />
+                <Route path='/login' component={Login} currentUser={currentUser}  />
                 <Route path='/signup' component={SignUp} />
             </Switch>
         )

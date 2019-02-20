@@ -4,7 +4,8 @@ export const setCurrentUser = user => {
     return {
         type: actionTypes.CURRENT_USER ,
         payload: {
-            currentUser: user
+            currentUser: user,
+            isLoading: false
         }
     }
 };

@@ -1,6 +1,6 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {setCurrentUser} from '../../actions';
+import {setCurrentUser, setLoading} from '../../actions';
 import { withRouter } from 'react-router-dom';
 
 import {NavLink} from 'react-router-dom';
@@ -9,26 +9,18 @@ import './main.css';
 
 import Header from '../header';
 
-class MainPage extends React.Component {    
-    state = {
-        loading: true
-    }
-    
-    componentWillReceiveProps(prevProps) {
-        if(prevProps.currentUser !== this.props.currentUser) {
-            this.setState({loading: false});
-        }
-    }
-    
+class MainPage extends React.Component {     
     render() {
-        const { location } = this.props;
-        if(!this.state.loading) {
+        const { currentUser, isLoading } = this.props;
+        console.log(isLoading);
+        console.log(currentUser);
+        if(isLoading) {
             return <div>Loading!</div>
         }
         return (
         <div>
-            <Header location={location}  />
-            Welcome
+            <Header key={currentUser && currentUser.id} user={currentUser} />
+            Welcome {currentUser.name}
         </div>
         )
     }
@@ -36,8 +28,9 @@ class MainPage extends React.Component {
 
 const mapStateToProps = (state) => {
     return {
-        currentUser: state.user.currentUser
+        currentUser: state.user.currentUser,
+        isLoading: state.user.isLoading
     }
 };
 
-export default withRouter(connect(mapStateToProps, {setCurrentUser})(MainPage));
+export default withRouter(connect(mapStateToProps, {setCurrentUser, setLoading})(MainPage));

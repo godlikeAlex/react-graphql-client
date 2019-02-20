@@ -16,7 +16,10 @@ const userReducer = (state = initialUserState, action) => {
                 isLoading: false
             };
         case actionTypes.LOGOUT_USER:
-            return initialUserState; 
+            return {
+                ...initialUserState,
+                isLoading: true
+            }
         case actionTypes.SET_LOADING: 
             return {
                 ...state,

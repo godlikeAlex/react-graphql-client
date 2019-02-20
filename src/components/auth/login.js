@@ -6,12 +6,19 @@ import { withRouter } from 'react-router-dom';
 import './auth.css';
 import Header from '../header/index';
 
+import WithApolloClient from '../hoc/WithApolloClient';
+import { setCurrentUser, setLoading } from '../../actions/index';
+
 
 class Login extends React.Component {
     state = {
         email: '',
         password: ''
     };
+
+    componentDidMount() {
+        this.props.setLoading(true);
+    }
 
     handlerChange = event => {
         this.setState({
@@ -21,10 +28,10 @@ class Login extends React.Component {
 
     handleSubmit = (event, signUpUser) => {
         event.preventDefault();
-
         signUpUser()
             .then(({data}) => {
                 localStorage.setItem('token', data.login.token);
+                this.props.setCurrentUser(data.login.user);
                 this.props.history.push('/');
             })
             .catch(err => this.setState({error: err.message}));
@@ -34,7 +41,6 @@ class Login extends React.Component {
         const {email, password} = this.state;
         return (
             <div>
-             <Header />
              <div className='login'>
                 <div> Login </div>
                 <Mutation mutation={LOGIN} variables={{email, password}}>
@@ -59,11 +65,5 @@ class Login extends React.Component {
     }
 };
 
-const mapStateToProps = ({user}) => {
-    return {
-        currentUser: user.currentUser
-    }
-};
 
-
-export default withRouter(connect(mapStateToProps)(Login));
+export default withRouter(connect(null, {setCurrentUser, setLoading}) (Login));
