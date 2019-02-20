@@ -38,8 +38,8 @@ class App extends Component {
         const {currentUser} = this.props;
         return (
             <Switch>
-                <Route path='/' exact component={MainPage} currentUser={currentUser} />
-                <Route path='/login' component={Login} currentUser={currentUser}  />
+                <Route path='/' exact component={MainPage}  />
+                <Route path='/login' component={Login} />
                 <Route path='/signup' component={SignUp} />
             </Switch>
         )
