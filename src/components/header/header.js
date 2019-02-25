@@ -1,5 +1,5 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import {Link, withRouter} from 'react-router-dom';
 import { connect } from 'react-redux';
 import './header.css';
 
@@ -13,11 +13,7 @@ class Header extends React.Component {
         localStorage.removeItem('token');
         this.props.history.push('/login');
     }
-
-    componentDidMount() {
-        console.log(this.props.currentUser);
-    }
-
+    
     render() {
         const {currentUser, isLoading} = this.props;
         console.log(isLoading)
@@ -52,4 +48,4 @@ const mapStateToProps = (state) => {
     }
 };
 
-export default connect(mapStateToProps, {logOut, setLoading})(Header);
+export default withRouter(connect(mapStateToProps, {logOut, setLoading})(Header));
