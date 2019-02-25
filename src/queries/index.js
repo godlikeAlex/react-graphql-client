@@ -35,3 +35,17 @@ export const LOGIN = gql`
     }
 `;
 
+export const CREATE_USER = gql`
+    mutation($name: String!,$email: String!, $password: String!){
+        createUser(data:{name: $name, email: $email, password: $password}) {
+            token
+            user {
+                id
+                name
+                email
+            }
+        }
+    }
+`;
+
+
