@@ -13,11 +13,10 @@ class Header extends React.Component {
         localStorage.removeItem('token');
         this.props.history.push('/login');
     }
-    
+
     render() {
         const {currentUser, isLoading} = this.props;
-        console.log(isLoading)
-        if(currentUser === undefined) {
+        if(isLoading) {
             return <div>loading</div>
         }
         return (

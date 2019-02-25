@@ -3,8 +3,6 @@ import {connect} from 'react-redux';
 import {setCurrentUser, setLoading} from '../../actions';
 import { withRouter } from 'react-router-dom';
 
-import {NavLink} from 'react-router-dom';
-
 import './main.css';
 
 import Header from '../header';
@@ -12,8 +10,6 @@ import Header from '../header';
 class MainPage extends React.Component {     
     render() {
         const { currentUser, isLoading } = this.props;
-        console.log(isLoading);
-        console.log(currentUser);
         if(isLoading) {
             return <div>Loading!</div>
         }

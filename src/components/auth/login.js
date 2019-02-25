@@ -4,9 +4,6 @@ import {LOGIN} from '../../queries';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import './auth.css';
-import Header from '../header/index';
-
-import WithApolloClient from '../hoc/WithApolloClient';
 import { setCurrentUser, setLoading } from '../../actions/index';
 
 

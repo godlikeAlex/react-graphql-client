@@ -11,7 +11,7 @@ import './app.css';
 
 import {Login, SignUp} from '../auth';
 import { MainPage } from '../pages';
-import Spinner from '../spinner';
+// import Spinner from '../spinner';
 
 
  
